@@ -13,7 +13,7 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
 
         public LoginSteps()
         {
-            this.driver = Hooks.GetDriver();
+            this.driver = DriverManager.GetDriver();
             this.login = new Login(driver);
         }
 
@@ -21,6 +21,7 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         public void GivenIAmOnTheLoginPage()
         {
             driver.Url = "https://www.saucedemo.com/";
+            login.LoginPageVerify();
         }
 
         [When(@"I enter the username '([^']*)'")]

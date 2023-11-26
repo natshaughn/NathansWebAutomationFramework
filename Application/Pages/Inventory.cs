@@ -14,7 +14,7 @@ namespace NathansWebAutomationFramework.Application.Pages
 
         public void FindTitle()
         {
-        driver.FindElement(inventoryTitle).Equals("Products");
+            driver.FindElement(inventoryTitle).Equals("Products");
         }
     }
 }

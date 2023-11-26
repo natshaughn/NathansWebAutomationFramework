@@ -12,7 +12,7 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
 
         public InventorySteps()
         {
-            this.driver = Hooks.GetDriver();
+            this.driver = DriverManager.GetDriver();
             this.inventory = new Inventory(driver);
         }
 
