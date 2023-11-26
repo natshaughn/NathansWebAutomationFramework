@@ -1,39 +1,52 @@
-﻿/*using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium;
 
-namespace NathansWebAutomationFramework.Drivers
+namespace NathansWebAutomationFramework.Tests.Execution
 {
-    public class DriverManager
+    public static class DriverManager
     {
-        private IWebDriver? driver;
+        private static IWebDriver driver;
 
-        public IWebDriver InitializeDriver(string browser)
+        public static void InitializeDriver(string browserType)
         {
-            switch (browser.ToLower())
+            if (driver != null)
             {
-                case "chrome":
-                    driver = new ChromeDriver();
-                    break;
-                case "firefox":
-                    driver = new FirefoxDriver();
-                    break;
-                // Add more cases for other browsers if needed
-
-                default:
-                    throw new ArgumentException($"Invalid browser: {browser}");
+                throw new InvalidOperationException("Driver is already initialized.");
             }
 
-            driver.Manage().Window.Maximize();
+            if (browserType.Equals("Chrome", StringComparison.OrdinalIgnoreCase))
+            {
+                driver = new ChromeDriver();
+            }
+            else if (browserType.Equals("Firefox", StringComparison.OrdinalIgnoreCase))
+            {
+                driver = new FirefoxDriver();
+            }
+            else
+            {
+                throw new NotSupportedException($"Browser type '{browserType}' is not supported.");
+            }
+        }
+
+        public static IWebDriver GetDriver()
+        {
+            if (driver == null)
+            {
+                throw new InvalidOperationException("Driver is not initialized. Call InitializeDriver first.");
+            }
+
             return driver;
         }
 
-        public void QuitDriver()
+        public static void QuitDriver()
         {
             if (driver != null)
             {
                 driver.Quit();
+                driver = null;
             }
         }
     }
-}*/
+}
+

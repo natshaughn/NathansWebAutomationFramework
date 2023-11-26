@@ -10,10 +10,15 @@ namespace NathansWebAutomationFramework.Application.Pages
             this.driver = driver;
         }
 
+        By loginTitle = By.ClassName("login_logo");
         By userInput = By.Id("user-name");
         By passwordInput = By.Id("password");
         By loginButton = By.Id("login-button");
 
+        public void LoginPageVerify()
+        {
+            driver.FindElement(loginTitle).Equals("Swag Labs");
+        }
         public void InputUser(string text)
         {
             driver.FindElement(userInput).SendKeys(text);
