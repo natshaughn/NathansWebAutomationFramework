@@ -1,21 +1,38 @@
-﻿namespace NathansWebAutomationFramework.Tests.Execution
+﻿using NUnit.Framework;
+
+namespace NathansWebAutomationFramework.Tests.Execution
 {
     [Binding]
     public class Hooks
     {
-        [BeforeScenario(Order = 1)]
-        public void BeforeScenario()
+        public class AppInfo
         {
-            // You can pass the browser type as a configuration or use a default value
-            string browserType = "Chrome"; // or "Firefox"
-
-            DriverManager.InitializeDriver(browserType);
+            public string BaseUrl { get; set; }
+            public string Browser { get; set; }
         }
+
+        [BeforeScenario(Order = 1)]
+        public void BeforeScenario(ScenarioContext scenarioContext)
+        {
+            string baseUrl = TestContext.Parameters["BaseUrl"];
+            string browser = TestContext.Parameters["Browser"];
+
+            Console.WriteLine($"BaseUrl: {baseUrl}, Browser: {browser}");
+
+            AppInfo appInfo = new AppInfo()
+            {
+                BaseUrl = baseUrl,
+                Browser = browser
+            };
+
+            DriverManager.Init(appInfo.Browser, appInfo.BaseUrl);
+        }
+
 
         [AfterScenario]
         public void AfterScenario()
         {
-            DriverManager.QuitDriver();
+            DriverManager.CloseDriver();
         }
     }
 }

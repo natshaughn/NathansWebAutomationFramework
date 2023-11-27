@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+	<TestRunParameters>
+		<!-- App Info -->
+		<Parameter name="BaseUrl" value="https://www.saucedemo.com/" />
+		<!-- Available Browsers: Chrome, Firefox -->
+		<Parameter name="Browser" value="Chrome" />
+	</TestRunParameters>
+</RunSettings>
+
