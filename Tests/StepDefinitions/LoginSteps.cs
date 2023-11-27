@@ -1,7 +1,7 @@
-using OpenQA.Selenium;
 using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
-using OpenQA.Selenium.Support.UI;
+using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.StepDefinitions
 {
@@ -20,7 +20,8 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [Given(@"I am on the login page")]
         public void GivenIAmOnTheLoginPage()
         {
-            driver.Url = "https://www.saucedemo.com/";
+            var baseUrl = TestContext.Parameters.Get("BaseUrl")!;
+            DriverManager.GoTo(baseUrl);  // Use DriverManager.GoTo to navigate to the URL
             login.LoginPageVerify();
         }
 

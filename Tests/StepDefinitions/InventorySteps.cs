@@ -1,6 +1,6 @@
-using OpenQA.Selenium;
 using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
+using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.StepDefinitions
 {

@@ -1,6 +1,6 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.Execution
 {
@@ -8,38 +8,48 @@ namespace NathansWebAutomationFramework.Tests.Execution
     {
         private static IWebDriver driver;
 
-        public static void InitializeDriver(string browserType)
-        {
-            if (driver != null)
-            {
-                throw new InvalidOperationException("Driver is already initialized.");
-            }
-
-            if (browserType.Equals("Chrome", StringComparison.OrdinalIgnoreCase))
-            {
-                driver = new ChromeDriver();
-            }
-            else if (browserType.Equals("Firefox", StringComparison.OrdinalIgnoreCase))
-            {
-                driver = new FirefoxDriver();
-            }
-            else
-            {
-                throw new NotSupportedException($"Browser type '{browserType}' is not supported.");
-            }
-        }
-
         public static IWebDriver GetDriver()
         {
-            if (driver == null)
-            {
-                throw new InvalidOperationException("Driver is not initialized. Call InitializeDriver first.");
-            }
-
             return driver;
         }
 
-        public static void QuitDriver()
+        public static void GoTo(string url)
+        {
+            driver.Url = url;
+        }
+
+        public static void Init(string browser, string url)
+        {
+            Console.WriteLine($"Initializing WebDriver with browser: {browser}, url: {url}");
+
+            switch (browser)
+            {
+                case "Chrome":
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    driver = new ChromeDriver(chromeOptions);
+                    break;
+
+                case "Firefox":
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    driver = new FirefoxDriver(firefoxOptions);
+                    break;
+
+                default:
+                    throw new ArgumentException($"Unsupported browser: {browser}");
+            }
+
+            // Ensure the driver is not null after initialization
+            if (driver != null)
+            {
+                driver.Manage().Window.Maximize();
+                GoTo(url);
+            }
+            else
+            {
+                throw new Exception("WebDriver is not initialized. Check the browser and url parameters.");
+            }
+        }
+        public static void CloseDriver()
         {
             if (driver != null)
             {
@@ -49,4 +59,3 @@ namespace NathansWebAutomationFramework.Tests.Execution
         }
     }
 }
-

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Application.Pages
 {
@@ -14,7 +15,8 @@ namespace NathansWebAutomationFramework.Application.Pages
 
         public void FindTitle()
         {
-            driver.FindElement(inventoryTitle).Equals("Products");
+            //driver.FindElement(inventoryTitle).Equals("Products");
+            Assert.AreEqual("Products", driver.FindElement(inventoryTitle).Text, "Expected title is not 'Products'.");
         }
     }
 }
