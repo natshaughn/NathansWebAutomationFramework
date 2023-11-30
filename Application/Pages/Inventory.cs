@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Application.Pages
 {
@@ -15,8 +14,17 @@ namespace NathansWebAutomationFramework.Application.Pages
 
         public void FindTitle()
         {
-            //driver.FindElement(inventoryTitle).Equals("Products");
-            Assert.AreEqual("Products", driver.FindElement(inventoryTitle).Text, "Expected title is not 'Products'.");
+            IWebElement titleElement = driver.FindElement(inventoryTitle);
+            string actualTitle = titleElement.Text;
+            string expectedTitle = "Products"; // Adjust this to your expected title
+
+            if (!actualTitle.Equals(expectedTitle))
+            {
+                // Fail the test or log the failure
+                Console.WriteLine($"Expected title: {expectedTitle}, Actual title: {actualTitle}");
+                throw new Exception("Title mismatch");
+            }
         }
+
     }
 }
