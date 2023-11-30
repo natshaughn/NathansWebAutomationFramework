@@ -17,15 +17,29 @@ namespace NathansWebAutomationFramework.Application.Pages
 
         public void LoginPageVerify()
         {
-            driver.FindElement(loginTitle).Equals("Swag Labs");
+            // Updated to use GetAttribute("innerText") for better text retrieval
+            string actualTitle = driver.FindElement(loginTitle).GetAttribute("innerText");
+            string expectedTitle = "Swag Labs"; // Adjust this to your expected title
+
+            if (!actualTitle.Equals(expectedTitle))
+            {
+                // Fail the test or log the failure
+                Console.WriteLine($"Expected title: {expectedTitle}, Actual title: {actualTitle}");
+                throw new Exception("Title mismatch");
+            }
         }
+
         public void InputUser(string text)
         {
+            // Updated to clear existing text before input
+            driver.FindElement(userInput).Clear();
             driver.FindElement(userInput).SendKeys(text);
         }
 
         public void InputPassword(string text)
         {
+            // Updated to clear existing text before input
+            driver.FindElement(passwordInput).Clear();
             driver.FindElement(passwordInput).SendKeys(text);
         }
 
