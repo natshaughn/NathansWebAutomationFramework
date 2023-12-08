@@ -3,7 +3,8 @@
 	<TestRunParameters>
 		<!-- App Info -->
 		<Parameter name="BaseUrl" value="https://www.saucedemo.com/" />
-		<!-- Available Browsers: Chrome, Firefox -->
+		<!-- Available Browsers: Chrome, Firefox,ChromeDocker, FirefoxDocker -->
 		<Parameter name="Browser" value="Chrome" />
+		<!-- Update this value as needed -->
 	</TestRunParameters>
 </RunSettings>
