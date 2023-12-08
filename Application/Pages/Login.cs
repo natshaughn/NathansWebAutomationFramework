@@ -4,16 +4,17 @@ namespace NathansWebAutomationFramework.Application.Pages
 {
     public class Login
     {
-        private IWebDriver driver;
+        private readonly IWebDriver driver;
         public Login(IWebDriver driver)
         {
             this.driver = driver;
         }
 
-        By loginTitle = By.ClassName("login_logo");
-        By userInput = By.Id("user-name");
-        By passwordInput = By.Id("password");
-        By loginButton = By.Id("login-button");
+        readonly By loginTitle = By.ClassName("login_logo");
+        readonly By userInput = By.Id("user-name");
+        readonly By passwordInput = By.Id("password");
+        readonly By loginButton = By.Id("login-button");
+        readonly By loginErrorMsg = By.TagName("h3");
 
         public void LoginPageVerify()
         {
@@ -46,6 +47,11 @@ namespace NathansWebAutomationFramework.Application.Pages
         public void ClickLogin()
         {
             driver.FindElement(loginButton).Click();
+        }
+
+        public void ErrorMessage()
+        {
+            driver.FindElement(loginErrorMsg).Equals("Epic sadface: Username and password do not match any user in this service");
         }
     }
 }

@@ -20,22 +20,22 @@ namespace NathansWebAutomationFramework.Tests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Login")]
-    public partial class LoginFeature
+    [NUnit.Framework.DescriptionAttribute("ProductPriceCSV")]
+    public partial class ProductPriceCSVFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "Login.feature"
+#line 1 "ProductPriceCSV.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Tests/Features", "Login", "As customer I want to login to SwagLabs", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Tests/Features", "ProductPriceCSV", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,13 +74,28 @@ namespace NathansWebAutomationFramework.Tests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Login")]
-        public void Login()
+        [NUnit.Framework.DescriptionAttribute("Using .csv file to confirm product prices")]
+        [NUnit.Framework.CategoryAttribute("DataSource:SauceLabsPriceList.csv")]
+        [NUnit.Framework.TestCaseAttribute("29.99", "Sauce Labs Backpack", null)]
+        [NUnit.Framework.TestCaseAttribute("9.99", "Sauce Labs Bike Light", null)]
+        [NUnit.Framework.TestCaseAttribute("15.99", "Sauce Labs Bolt T-Shirt", null)]
+        [NUnit.Framework.TestCaseAttribute("49.99", "Sauce Labs Fleece-Jacket", null)]
+        [NUnit.Framework.TestCaseAttribute("7.99", "Sauce Labs Onesie", null)]
+        [NUnit.Framework.TestCaseAttribute("15.99", "Test.allTheThings() T-Shirt (Red)", null)]
+        public void Using_CsvFileToConfirmProductPrices(string price, string product, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] @__tags = new string[] {
+                    "DataSource:SauceLabsPriceList.csv"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 5
+            argumentsOfScenario.Add("price", price);
+            argumentsOfScenario.Add("product", product);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Using .csv file to confirm product prices", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -90,20 +105,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 6
- testRunner.Given("I am on the login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 7
- testRunner.When("I enter the username \'standard_user\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
- testRunner.And("I enter the password \'secret_sauce\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 9
- testRunner.And("I click the login button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 10
- testRunner.Then("I am on the inventory page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the {0} of the {1} will be correct", price, product), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

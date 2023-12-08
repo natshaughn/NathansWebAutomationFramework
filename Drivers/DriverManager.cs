@@ -26,24 +26,24 @@ namespace NathansWebAutomationFramework.Tests.Execution
             switch (browser)
             {
                 case "Chrome":
-                    ChromeOptions chromeOptions = new ChromeOptions();
+                    ChromeOptions? chromeOptions = new();
                     driver = new ChromeDriver(chromeOptions);
                     break;
 
                 case "Firefox":
-                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    FirefoxOptions? firefoxOptions = new();
                     driver = new FirefoxDriver(firefoxOptions);
                     break;
 
                 case "ChromeDocker":
                     Console.WriteLine($"Connecting to Selenium Grid for ChromeDocker");
-                    ChromeOptions dockerOptions = new ChromeOptions();
+                    ChromeOptions? dockerOptions = new();
                     driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), dockerOptions);
                     break;
 
                 case "FirefoxDocker":
                     Console.WriteLine($"Connecting to Selenium Grid for FirefoxDocker");
-                    FirefoxOptions firefoxDockerOptions = new FirefoxOptions();
+                    FirefoxOptions? firefoxDockerOptions = new();
                     driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), firefoxDockerOptions);
                     break;
 

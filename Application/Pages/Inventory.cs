@@ -4,13 +4,16 @@ namespace NathansWebAutomationFramework.Application.Pages
 {
     public class Inventory
     {
-        private IWebDriver driver;
+        private readonly IWebDriver driver;
         public Inventory(IWebDriver driver)
         {
             this.driver = driver;
         }
 
-        By inventoryTitle = By.ClassName("title");
+        readonly By inventoryTitle = By.ClassName("title");
+        readonly By cartBtn = By.ClassName("shopping_cart_link");
+        readonly By prodPrice = By.ClassName("inventory_item_price");
+        readonly By prodName = By.ClassName("inventory_item_name");
 
         public void FindTitle()
         {
@@ -24,6 +27,26 @@ namespace NathansWebAutomationFramework.Application.Pages
                 Console.WriteLine($"Expected title: {expectedTitle}, Actual title: {actualTitle}");
                 throw new Exception("Title mismatch");
             }
+
+        }
+        public void AddProductCart(string product)
+        {
+            driver.FindElement(By.XPath($"//*[@id='add-to-cart-{product}']")).Click();
+        }
+
+        public void ClickCartBtn()
+        {
+            driver.FindElement(cartBtn).Click();
+        }
+
+        public void ProductPrice(decimal price)
+        {
+            driver.FindElement(prodPrice).Equals(price);
+        }
+
+        public void ProductName(string product)
+        {
+            driver.FindElement(prodName).Equals(product);
         }
 
     }
