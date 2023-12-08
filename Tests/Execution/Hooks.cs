@@ -18,7 +18,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
         }
 
         [BeforeTestRun]
-        public new static void BeforeTestRun()
+        public static void BeforeTestRun()
         {
             Console.WriteLine("Running before test run...");
 
@@ -26,34 +26,37 @@ namespace NathansWebAutomationFramework.Tests.Execution
             string baseUrl = TestContext.Parameters["BaseUrl"];
             string browser = TestContext.Parameters["Browser"];
 
+            // Construct the Selenium Grid URL based on the Docker network
+            string gridUrl = "http://selenium-hub:4444/wd/hub";  // Updated URL
+
             // Create an instance of AppInfo and set the properties
             Hooks.AppInfo appInfo = new Hooks.AppInfo
             {
-                BaseUrl = baseUrl, // Sets actual base URL
-                Browser = browser   // Sets actual browser
+                BaseUrl = baseUrl,
+                Browser = browser
             };
 
-            // Call ExtentReportInit with the created AppInfo
-            ExtentReportInit(appInfo);
+            // Call ExtentReportInit with the created AppInfo and the Selenium Grid URL
+            ExtentReportInit(appInfo, gridUrl);
         }
 
 
         [AfterTestRun]
-        public new static void AfterTestRun()
+        public static void AfterTestRun()
         {
             Console.WriteLine("Running after test run...");
             ExtentReportTearDown();
         }
 
         [BeforeFeature]
-        public new static void BeforeFeature(FeatureContext featureContext)
+        public static void BeforeFeature(FeatureContext featureContext)
         {
             Console.WriteLine("Running before feature...");
             _feature = _extentReports.CreateTest<Feature>(featureContext.FeatureInfo.Title);
         }
 
         [AfterFeature]
-        public new static void AfterFeature()
+        public static void AfterFeature()
         {
             Console.WriteLine("Running after feature...");
         }
@@ -98,9 +101,23 @@ namespace NathansWebAutomationFramework.Tests.Execution
 
             var driver = _container.Resolve<IWebDriver>();
 
-            // When scenario passed
-            if (scenarioContext.TestError == null)
+            // When scenario fails
+            if (scenarioContext.TestError != null)
             {
+                try
+                {
+                    // Attempt to capture and attach a screenshot to the report
+                    _scenario.CreateNode<Given>(stepName).Fail(scenarioContext.TestError.Message,
+                        MediaEntityBuilder.CreateScreenCaptureFromPath(AddScreenshot(driver, scenarioContext)).Build());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error adding screenshot to report: {ex.Message}");
+                }
+            }
+            else // When scenario passed
+            {
+                // Create nodes based on step type (Given, When, Then, And)
                 if (stepType == "Given")
                 {
                     _scenario.CreateNode<Given>(stepName);
@@ -116,32 +133,6 @@ namespace NathansWebAutomationFramework.Tests.Execution
                 else if (stepType == "And")
                 {
                     _scenario.CreateNode<And>(stepName);
-                }
-            }
-
-            // When scenario fails
-            if (scenarioContext.TestError != null)
-            {
-
-                if (stepType == "Given")
-                {
-                    _scenario.CreateNode<Given>(stepName).Fail(scenarioContext.TestError.Message,
-                        MediaEntityBuilder.CreateScreenCaptureFromPath(AddScreenshot(driver, scenarioContext)).Build());
-                }
-                else if (stepType == "When")
-                {
-                    _scenario.CreateNode<When>(stepName).Fail(scenarioContext.TestError.Message,
-                        MediaEntityBuilder.CreateScreenCaptureFromPath(AddScreenshot(driver, scenarioContext)).Build());
-                }
-                else if (stepType == "Then")
-                {
-                    _scenario.CreateNode<Then>(stepName).Fail(scenarioContext.TestError.Message,
-                        MediaEntityBuilder.CreateScreenCaptureFromPath(AddScreenshot(driver, scenarioContext)).Build());
-                }
-                else if (stepType == "And")
-                {
-                    _scenario.CreateNode<And>(stepName).Fail(scenarioContext.TestError.Message,
-                        MediaEntityBuilder.CreateScreenCaptureFromPath(AddScreenshot(driver, scenarioContext)).Build());
                 }
             }
         }

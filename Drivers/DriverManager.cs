@@ -1,14 +1,15 @@
-﻿using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 
 namespace NathansWebAutomationFramework.Tests.Execution
 {
     public static class DriverManager
     {
-        private static IWebDriver driver;
+        private static IWebDriver? driver;
 
-        public static IWebDriver GetDriver()
+        public static IWebDriver? GetDriver()
         {
             return driver;
         }
@@ -34,6 +35,18 @@ namespace NathansWebAutomationFramework.Tests.Execution
                     driver = new FirefoxDriver(firefoxOptions);
                     break;
 
+                case "ChromeDocker":
+                    Console.WriteLine($"Connecting to Selenium Grid for ChromeDocker");
+                    ChromeOptions dockerOptions = new ChromeOptions();
+                    driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), dockerOptions);
+                    break;
+
+                case "FirefoxDocker":
+                    Console.WriteLine($"Connecting to Selenium Grid for FirefoxDocker");
+                    FirefoxOptions firefoxDockerOptions = new FirefoxOptions();
+                    driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), firefoxDockerOptions);
+                    break;
+
                 default:
                     throw new ArgumentException($"Unsupported browser: {browser}");
             }
@@ -49,6 +62,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
                 throw new Exception("WebDriver is not initialized. Check the browser and url parameters.");
             }
         }
+
         public static void CloseDriver()
         {
             if (driver != null)

@@ -1,6 +1,6 @@
-﻿using AventStack.ExtentReports.Reporter.Configuration;
+﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
-using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter.Configuration;
 using NathansWebAutomationFramework.Tests.Execution;
 using OpenQA.Selenium;
 
@@ -24,8 +24,29 @@ namespace NathansWebAutomationFramework.Utility
             return dir.Replace("bin\\Debug\\net6.0", "TestResults");
         }
 
-        public static void ExtentReportInit(Hooks.AppInfo appInfo)
+        public static void DeleteOldScreenshots()
         {
+            string testResultPath = GetTestResultPath();
+            string[] screenshotFiles = Directory.GetFiles(testResultPath, "*.png");
+
+            foreach (var screenshotFile in screenshotFiles)
+            {
+                try
+                {
+                    File.Delete(screenshotFile);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error deleting screenshot file '{screenshotFile}': {ex.Message}");
+                }
+            }
+        }
+
+        public static void ExtentReportInit(Hooks.AppInfo appInfo, string gridUrl)
+        {
+            // Delete old screenshots before initializing the report
+            DeleteOldScreenshots();
+
             // Specify the report file path without the timestamp
             string reportFilePath = GetTestResultPath() + "\\AutomationReport.html";
 
@@ -49,6 +70,12 @@ namespace NathansWebAutomationFramework.Utility
             _extentReports.AddSystemInfo("Application", "Swag Labs");
             _extentReports.AddSystemInfo("BaseUrl", appInfo.BaseUrl);
             _extentReports.AddSystemInfo("Browser", appInfo.Browser);
+
+            // Additional info for remote execution
+            if (appInfo.Browser == "ChromeDocker")
+            {
+                _extentReports.AddSystemInfo("Grid URL", gridUrl); // Updated line
+            }
         }
 
         public static void ExtentReportTearDown()
@@ -56,12 +83,24 @@ namespace NathansWebAutomationFramework.Utility
             _extentReports.Flush();
         }
 
+
         public static string AddScreenshot(IWebDriver driver, ScenarioContext scenarioContext)
         {
             ITakesScreenshot takesScreenshot = (ITakesScreenshot)driver;
             Screenshot screenshot = takesScreenshot.GetScreenshot();
+            byte[] screenshotBytes = screenshot.AsByteArray;
+
             string screenshotLocation = Path.Combine(GetTestResultPath(), scenarioContext.ScenarioInfo.Title + ".png");
-            screenshot.SaveAsFile(screenshotLocation, ScreenshotImageFormat.Png);
+
+            try
+            {
+                File.WriteAllBytes(screenshotLocation, screenshotBytes);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving screenshot: {ex.Message}");
+            }
+
             return screenshotLocation;
         }
     }
