@@ -10,13 +10,13 @@ namespace NathansWebAutomationFramework.Utility
     {
         public class AppInfo
         {
-            public string BaseUrl { get; set; }
-            public string Browser { get; set; }
+            public string? BaseUrl { get; set; }
+            public string? Browser { get; set; }
         }
 
-        public static ExtentReports _extentReports;
-        public static ExtentTest _feature;
-        public static ExtentTest _scenario;
+        public static ExtentReports? _extentReports;
+        public static ExtentTest? _feature;
+        public static ExtentTest? _scenario;
 
         public static string GetTestResultPath()
         {
@@ -57,7 +57,7 @@ namespace NathansWebAutomationFramework.Utility
             }
 
             // Append the timestamp to the report file path
-            reportFilePath = $"{reportFilePath.Substring(0, reportFilePath.Length - 5)}_{DateTime.Now:yyyyMMdd_HHmmss}.html";
+            reportFilePath = $"{reportFilePath[..^5]}_{DateTime.Now:yyyyMMdd_HHmmss}.html";
 
             var htmlReporter = new ExtentHtmlReporter(reportFilePath);
             htmlReporter.Config.ReportName = "Automation Status Report";
@@ -82,7 +82,6 @@ namespace NathansWebAutomationFramework.Utility
         {
             _extentReports.Flush();
         }
-
 
         public static string AddScreenshot(IWebDriver driver, ScenarioContext scenarioContext)
         {

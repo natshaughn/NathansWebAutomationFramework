@@ -30,7 +30,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             string gridUrl = "http://selenium-hub:4444/wd/hub";  // Updated URL
 
             // Create an instance of AppInfo and set the properties
-            Hooks.AppInfo appInfo = new Hooks.AppInfo
+            Hooks.AppInfo appInfo = new()
             {
                 BaseUrl = baseUrl,
                 Browser = browser
@@ -84,7 +84,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
 
 
         [AfterScenario]
-        public void AfterScenario()
+        public static void AfterScenario()
         {
             DriverManager.CloseDriver();
 

@@ -25,6 +25,18 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             login.LoginPageVerify();
         }
 
+        [Given(@"I have logged in")]
+        public void GivenIHaveLoggedIn()
+        {
+            var loginSteps = new LoginSteps();
+            loginSteps.GivenIAmOnTheLoginPage();
+            loginSteps.WhenIEnterTheUsername("standard_user");
+            loginSteps.WhenIEnterThePassword("secret_sauce");
+            loginSteps.WhenIClickTheLoginButton();
+            new InventorySteps().ThenIAmOnTheInventoryPage(); // Assuming you want to verify being on the inventory page
+        }
+
+
         [When(@"I enter the username '([^']*)'")]
         public void WhenIEnterTheUsername(string username)
         {
@@ -42,5 +54,13 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         {
             login.ClickLogin();
         }
+
+        [Then(@"an error message should appear")]
+        public void ThenAnErrorMessageShouldAppear()
+        {
+            login.ErrorMessage();
+        }
+
+
     }
 }
