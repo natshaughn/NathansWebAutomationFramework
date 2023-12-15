@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
+using System.Configuration;
 
 namespace NathansWebAutomationFramework.Tests.Execution
 {
@@ -27,11 +28,21 @@ namespace NathansWebAutomationFramework.Tests.Execution
             {
                 case "Chrome":
                     ChromeOptions? chromeOptions = new();
+                    string browserOptions = ConfigurationManager.AppSettings["BrowserOptions"];
+                    if (!string.IsNullOrEmpty(browserOptions))
+                    {
+                        chromeOptions.AddArgument(browserOptions);
+                    }
                     driver = new ChromeDriver(chromeOptions);
                     break;
 
                 case "Firefox":
                     FirefoxOptions? firefoxOptions = new();
+                    string browserOptionsFirefox = ConfigurationManager.AppSettings["BrowserOptions"];
+                    if (!string.IsNullOrEmpty(browserOptionsFirefox))
+                    {
+                        firefoxOptions.AddArgument(browserOptionsFirefox);
+                    }
                     driver = new FirefoxDriver(firefoxOptions);
                     break;
 

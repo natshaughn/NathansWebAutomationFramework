@@ -6,5 +6,10 @@
 		<!-- Available Browsers: Chrome, Firefox,ChromeDocker, FirefoxDocker -->
 		<Parameter name="Browser" value="Chrome" />
 		<!-- Update this value as needed -->
+
+		<!-- Additional browser options -->
+		<Parameter name="BrowserOptions" value="--headless" />
+		<!-- You can customize this value based on your needs -->
 	</TestRunParameters>
 </RunSettings>
+
