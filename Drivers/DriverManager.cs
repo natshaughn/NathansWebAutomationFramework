@@ -14,11 +14,13 @@ namespace NathansWebAutomationFramework.Tests.Execution
             return driver;
         }
 
+        // Navigate to url 
         public static void GoTo(string url)
         {
             driver.Url = url;
         }
 
+        // Initializes the WebDriver based on the browser and URL
         public static void Init(string browser, string url)
         {
             Console.WriteLine($"Initializing WebDriver with browser: {browser}, url: {url}");
@@ -27,13 +29,13 @@ namespace NathansWebAutomationFramework.Tests.Execution
             {
                 case "Chrome":
                     ChromeOptions? chromeOptions = new();
-                    chromeOptions.AddArgument("headless"); // Add this line for headless mode
+                    //chromeOptions.AddArgument("headless"); 
                     driver = new ChromeDriver(chromeOptions);
                     break;
 
                 case "Firefox":
                     FirefoxOptions? firefoxOptions = new();
-                    firefoxOptions.AddArgument("--headless"); // Add this line for headless mode
+                    //firefoxOptions.AddArgument("--headless"); 
                     driver = new FirefoxDriver(firefoxOptions);
                     break;
 
@@ -53,7 +55,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
                     throw new ArgumentException($"Unsupported browser: {browser}");
             }
 
-            // Ensure the driver is not null after initialization
+            // Ensures the driver is not null after initialization
             if (driver != null)
             {
                 driver.Manage().Window.Maximize();
@@ -65,6 +67,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             }
         }
 
+        // Closes the WebDriver instance
         public static void CloseDriver()
         {
             if (driver != null)
