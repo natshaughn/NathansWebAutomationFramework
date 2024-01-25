@@ -20,6 +20,7 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [When(@"I click finish")]
         public void WhenIClickFinish()
         {
+            // Call the method to click on the 'Finish' button in the Checkout Step Two page
             checkoutStepTwo.ClickFinish();
         }
 

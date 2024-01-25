@@ -17,6 +17,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             _container = container;
         }
 
+        // Executed before entire test run
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
@@ -27,7 +28,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             string browser = TestContext.Parameters["Browser"];
 
             // Construct the Selenium Grid URL based on the Docker network
-            string gridUrl = "http://selenium-hub:4444/wd/hub";  // Updated URL
+            string gridUrl = "http://selenium-hub:4444/wd/hub";
 
             // Create an instance of AppInfo and set the properties
             Hooks.AppInfo appInfo = new()
@@ -40,7 +41,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             ExtentReportInit(appInfo, gridUrl);
         }
 
-
+        // Executed after entire test run
         [AfterTestRun]
         public static void AfterTestRun()
         {
@@ -48,6 +49,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             ExtentReportTearDown();
         }
 
+        // Executed before each feature
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
@@ -55,13 +57,9 @@ namespace NathansWebAutomationFramework.Tests.Execution
             _feature = _extentReports.CreateTest<Feature>(featureContext.FeatureInfo.Title);
         }
 
-        [AfterFeature]
-        public static void AfterFeature()
-        {
-            Console.WriteLine("Running after feature...");
-        }
 
-        [BeforeScenario(Order = 1)]
+        // Executed before each scenario 
+        [BeforeScenario]
         public void FirstBeforeScenario(ScenarioContext scenarioContext)
         {
             Console.WriteLine("Running before scenario...");
@@ -82,7 +80,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             _scenario = _feature.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title);
         }
 
-
+        // Executed after each scenario
         [AfterScenario]
         public static void AfterScenario()
         {
@@ -92,6 +90,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             ExtentReportTearDown();
         }
 
+        // Executed after each step
         [AfterStep]
         public void AfterStep(ScenarioContext scenarioContext)
         {

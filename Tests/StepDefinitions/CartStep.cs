@@ -20,6 +20,7 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [When(@"I click the checkout button")]
         public void WhenIClickTheCheckoutButton()
         {
+            // Call the method to click on the checkout button
             cart.ClickCheckout();
         }
 
