@@ -1,5 +1,6 @@
 using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
+using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.StepDefinitions
@@ -20,14 +21,14 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         public void WhenIAddToCart(string product)
         {
             // Call the method to add the specified product to the cart
-            inventory.AddProductCart(product);
+            inventory.AddProductToCart(product);
         }
 
         [When(@"I click on the cart button")]
         public void WhenIClickOnTheCartButton()
         {
             // Call the method to click on the cart button
-            inventory.ClickCartBtn();
+            inventory.ClickCartButton();
         }
 
         [Then(@"I am on the inventory page")]
@@ -38,14 +39,15 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         }
 
         [Then(@"the (.*) of the (.*) will be correct")]
-        public void ThenThePriceOfTheProductWillBeCorrect(decimal price, string product)
+        public void ThenThePriceOfTheProductWillBeCorrect(decimal expectedPrice, string expectedProduct)
         {
             // Verify that the displayed price matches the expected price for the specified product
-            inventory.ProductPrice(price);
+            inventory.VerifyProductPrice(expectedPrice);
 
             // Verify that the displayed product name matches the expected product name
-            inventory.ProductName(product);
+            inventory.VerifyProductName(expectedProduct);
         }
 
     }
 }
+

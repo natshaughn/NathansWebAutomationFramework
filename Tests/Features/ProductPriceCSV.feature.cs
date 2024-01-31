@@ -79,7 +79,7 @@ namespace NathansWebAutomationFramework.Tests.Features
         [NUnit.Framework.TestCaseAttribute("29.99", "Sauce Labs Backpack", null)]
         [NUnit.Framework.TestCaseAttribute("9.99", "Sauce Labs Bike Light", null)]
         [NUnit.Framework.TestCaseAttribute("15.99", "Sauce Labs Bolt T-Shirt", null)]
-        [NUnit.Framework.TestCaseAttribute("49.99", "Sauce Labs Fleece-Jacket", null)]
+        [NUnit.Framework.TestCaseAttribute("49.99", "Sauce Labs Fleece Jacket", null)]
         [NUnit.Framework.TestCaseAttribute("7.99", "Sauce Labs Onesie", null)]
         [NUnit.Framework.TestCaseAttribute("15.99", "Test.allTheThings() T-Shirt (Red)", null)]
         public void Using_CsvFileToConfirmProductPrices(string price, string product, string[] exampleTags)

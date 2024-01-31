@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NathansWebAutomationFramework.Application.Elements;
+using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Application.Pages
 {
@@ -12,22 +13,20 @@ namespace NathansWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        readonly By loginTitle = By.ClassName("login_logo");
-        readonly By userInput = By.Id("user-name");
-        readonly By passwordInput = By.Id("password");
-        readonly By loginButton = By.Id("login-button");
-        readonly By loginErrorMsg = By.TagName("h3");
+        private ElementWrapper LoginTitle => new ElementWrapper(driver, By.ClassName("login_logo"));
+        private ElementWrapper UserInput => new ElementWrapper(driver, By.Id("user-name"));
+        private ElementWrapper PasswordInput => new ElementWrapper(driver, By.Id("password"));
+        private ElementWrapper LoginButton => new ElementWrapper(driver, By.Id("login-button"));
+        private ElementWrapper LoginErrorMsg => new ElementWrapper(driver, By.TagName("h3"));
 
         // Verify the login page has the expected title
         public void LoginPageVerify()
         {
-            // Updated to use GetAttribute("innerText") for better text retrieval
-            string actualTitle = driver.FindElement(loginTitle).GetAttribute("innerText");
-            string expectedTitle = "Swag Labs"; // Expected title
+            string actualTitle = LoginTitle.GetText();
+            string expectedTitle = "Swag Labs";
 
             if (!actualTitle.Equals(expectedTitle))
             {
-                // Log the failure details to the console
                 Console.WriteLine($"Expected title: {expectedTitle}, Actual title: {actualTitle}");
                 throw new Exception("Login page title mismatch");
             }
@@ -36,37 +35,35 @@ namespace NathansWebAutomationFramework.Application.Pages
         // Inputs a username 
         public void InputUser(string text)
         {
-            // Clear existing text before input
-            driver.FindElement(userInput).Clear();
-            driver.FindElement(userInput).SendKeys(text);
+            UserInput.Clear();  // Clear existing text before input
+            UserInput.SendKeys(text);
         }
 
         // Inputs a password
         public void InputPassword(string text)
         {
-            // Clear existing text before input
-            driver.FindElement(passwordInput).Clear();
-            driver.FindElement(passwordInput).SendKeys(text);
+            PasswordInput.Clear();  // Clear existing text before input
+            PasswordInput.SendKeys(text);
         }
 
         // Click the login button on the page
         public void ClickLogin()
         {
-            driver.FindElement(loginButton).Click();
+            LoginButton.Click();
         }
 
         // Check the error message is correct 
         public void ErrorMessage()
         {
             string expectedErrorMessage = "Epic sadface: Username and password do not match any user in this service";
-            string actualErrorMessage = driver.FindElement(loginErrorMsg).Text;
+            string actualErrorMessage = LoginErrorMsg.GetText();
 
             if (!actualErrorMessage.Equals(expectedErrorMessage))
             {
-                // Log the failure details to the console
                 Console.WriteLine($"Expected error message: {expectedErrorMessage}, Actual error message: {actualErrorMessage}");
                 throw new Exception("Error message mismatch");
             }
         }
     }
 }
+

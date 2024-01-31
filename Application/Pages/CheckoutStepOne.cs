@@ -1,6 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using NathansWebAutomationFramework.Application.Elements;
+using OpenQA.Selenium;
 
-namespace NSWebAutomationFramework.Application.Pages
+namespace NathansWebAutomationFramework.Application.Pages
 {
     // Represents the first stage of the checkout on the application
     public class CheckoutStepOne
@@ -13,23 +14,24 @@ namespace NSWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        readonly By firstName = By.Id("first-name");
-        readonly By lastName = By.Id("last-name");
-        readonly By postcode = By.Id("postal-code");
-        readonly By continueBtn = By.Id("continue");
+        private ElementWrapper FirstNameInput => new ElementWrapper(driver, By.Id("first-name"));
+        private ElementWrapper LastNameInput => new ElementWrapper(driver, By.Id("last-name"));
+        private ElementWrapper PostcodeInput => new ElementWrapper(driver, By.Id("postal-code"));
+        private ElementWrapper ContinueButton => new ElementWrapper(driver, By.Id("continue"));
 
         // Enters the customer details
         public void EnterDetails(string firstNameValue, string lastNameValue, string postcodeValue)
         {
-            driver.FindElement(firstName).SendKeys(firstNameValue);
-            driver.FindElement(lastName).SendKeys(lastNameValue);
-            driver.FindElement(postcode).SendKeys(postcodeValue);
+            FirstNameInput.SendKeys(firstNameValue);
+            LastNameInput.SendKeys(lastNameValue);
+            PostcodeInput.SendKeys(postcodeValue);
         }
 
         // Clicks the continue button
         public void ClickContinue()
         {
-            driver.FindElement(continueBtn).Click();
+            ContinueButton.Click();
         }
     }
 }
+

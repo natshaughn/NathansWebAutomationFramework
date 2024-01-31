@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NathansWebAutomationFramework.Application.Elements;
+using OpenQA.Selenium;
 
 namespace NSWebAutomationFramework.Application.Pages
 {
@@ -13,12 +14,20 @@ namespace NSWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        readonly By checkoutCompleteMsg = By.ClassName("complete-header");
+        private ElementWrapper CheckoutCompleteMsg => new ElementWrapper(driver, By.ClassName("complete-header"));
 
         // Gets the checkout complete message
-        public string GetCheckoutCompleteMessage()
+        public void VerifyCheckoutCompleteMessage()
         {
-            return driver.FindElement(checkoutCompleteMsg).Text;
+            string expectedMessage = "Thank you for your order!";
+            string actualMessage = CheckoutCompleteMsg.GetText();
+
+            if (!actualMessage.Equals(expectedMessage))
+            {
+                Console.WriteLine($"Expected message: {expectedMessage}, Actual message: {actualMessage}");
+                throw new Exception("Checkout complete message mismatch");
+            }
         }
     }
 }
+
