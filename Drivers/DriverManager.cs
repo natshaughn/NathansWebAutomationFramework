@@ -29,13 +29,13 @@ namespace NathansWebAutomationFramework.Tests.Execution
             {
                 case "Chrome":
                     ChromeOptions? chromeOptions = new();
-                    //chromeOptions.AddArgument("headless"); 
+                    chromeOptions.AddArgument("headless"); 
                     driver = new ChromeDriver(chromeOptions);
                     break;
 
                 case "Firefox":
                     FirefoxOptions? firefoxOptions = new();
-                    //firefoxOptions.AddArgument("--headless"); 
+                    firefoxOptions.AddArgument("--headless"); 
                     driver = new FirefoxDriver(firefoxOptions);
                     break;
 
