@@ -1,6 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using NathansWebAutomationFramework.Application.Elements;
+using OpenQA.Selenium;
 
-namespace NSWebAutomationFramework.Application.Pages
+namespace NathansWebAutomationFramework.Application.Pages
 {
     // Represents the second stage of the checkout on the application
     public class CheckoutStepTwo
@@ -13,12 +14,13 @@ namespace NSWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        readonly By finishBtn = By.Id("finish");
+        private ElementWrapper FinishButton => new ElementWrapper(driver, By.Id("finish"));
 
         // Clicks on the finish button
         public void ClickFinish()
         {
-            driver.FindElement(finishBtn).Click();
+            FinishButton.Click();
         }
     }
 }
+

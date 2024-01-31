@@ -20,9 +20,10 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [Then(@"a message will appear confirming my order")]
         public void ThenAMessageWillAppearConfirmingMyOrder()
         {
-            // Call the method to retrieve the checkout complete message
-            checkoutComplete.GetCheckoutCompleteMessage();
+            // Call the method to verify the checkout complete message
+            checkoutComplete.VerifyCheckoutCompleteMessage();
         }
+
 
     }
 }

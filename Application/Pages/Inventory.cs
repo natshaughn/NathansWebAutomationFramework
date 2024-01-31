@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using NathansWebAutomationFramework.Application.Elements;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using System.Text.RegularExpressions;
 
 namespace NathansWebAutomationFramework.Application.Pages
 {
@@ -6,56 +9,99 @@ namespace NathansWebAutomationFramework.Application.Pages
     public class Inventory
     {
         private readonly IWebDriver driver;
+
         public Inventory(IWebDriver driver)
         {
             this.driver = driver;
         }
 
         // Locating specific elements on the page - if changed, can change here
-        readonly By inventoryTitle = By.ClassName("title");
-        readonly By cartBtn = By.ClassName("shopping_cart_link");
-        readonly By prodPrice = By.ClassName("inventory_item_price");
-        readonly By prodName = By.ClassName("inventory_item_name");
+        private ElementWrapper InventoryTitle => new ElementWrapper(driver, By.ClassName("title"));
+        private ElementWrapper CartButton => new ElementWrapper(driver, By.ClassName("shopping_cart_link"));
+        private ElementWrapper ProductPrice => new ElementWrapper(driver, By.ClassName("inventory_item_price"));
+        private ElementWrapper ProductName => new ElementWrapper(driver, By.ClassName("inventory_item_name"));
+        private ElementWrapper ProductElement(string product) => new ElementWrapper(driver, By.XPath($"//*[@id='add-to-cart-{product}']"));
 
-        // Find Inventory page title
+        // Verify Inventory page title
         public void FindTitle()
         {
-            IWebElement titleElement = driver.FindElement(inventoryTitle);
-            string actualTitle = titleElement.Text;
-            string expectedTitle = "Products"; // Expected title
+            string actualTitle = InventoryTitle.GetText();
+            string expectedTitle = "Products";
 
             if (!actualTitle.Equals(expectedTitle))
             {
-                // Fail the test or log the failure
                 Console.WriteLine($"Expected title: {expectedTitle}, Actual title: {actualTitle}");
                 throw new Exception("Inventory page title mismatch");
             }
-
         }
 
-        // Add a product to cart
-        public void AddProductCart(string product)
+        // Add a product to the cart
+        public void AddProductToCart(string product)
         {
-            driver.FindElement(By.XPath($"//*[@id='add-to-cart-{product}']")).Click();
+            // Use ElementWrapper to click the product add-to-cart button
+            ProductElement(product).Click();
         }
+
 
         // Click on the cart button
-        public void ClickCartBtn()
+        public void ClickCartButton()
         {
-            driver.FindElement(cartBtn).Click();
+            CartButton.Click();
         }
 
-        // Find the products price
-        public void ProductPrice(decimal price)
+        // Verify the products price
+        public void VerifyProductPrice(decimal expectedPrice)
         {
-            driver.FindElement(prodPrice).Equals(price);
+            var productPrices = new List<IWebElement>(ProductPrice.FindElements());
+
+            for (int i = 0; i < productPrices.Count; i++)
+            {
+                string actualPriceText = productPrices[i].Text;
+
+                // Remove currency symbols, whitespaces, and any other non-numeric characters
+                actualPriceText = Regex.Replace(actualPriceText, @"[^\d.]", "");
+
+                if (decimal.TryParse(actualPriceText, out decimal actualPrice))
+                {
+                    // Use NUnit assertion to check if the actual price matches the expected price
+                    if (actualPrice == expectedPrice)
+                    {
+                        return; // Found a match, exit the loop
+                    }
+                }
+            }
+
+            // If no match is found, throw an exception
+            throw new AssertionException($"No matching product price found for {expectedPrice}");
         }
 
-        // Find the products name 
-        public void ProductName(string product)
+        // Verify the products name
+        public void VerifyProductName(string expectedProduct)
         {
-            driver.FindElement(prodName).Equals(product);
+            var productNames = ProductName.FindElements();
+
+            foreach (var productNameElement in productNames)
+            {
+                string actualProductName = productNameElement.Text;
+
+                // Trim extra spaces for comparison
+                string cleanedActualProductName = actualProductName.Trim();
+
+                // Use NUnit assertion to check if the cleaned actual product name matches the cleaned expected product name
+                if (cleanedActualProductName.Equals(expectedProduct.Trim(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return; // Found a match, exit the loop
+                }
+            }
+
+            // If no match is found, throw an exception
+            throw new AssertionException($"No matching product name found for {expectedProduct}");
         }
+
+
+
+
 
     }
 }
+

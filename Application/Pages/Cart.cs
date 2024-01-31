@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NathansWebAutomationFramework.Application.Elements;
+using OpenQA.Selenium;
 
 namespace NSWebAutomationFramework.Application.Pages
 {
@@ -13,12 +14,12 @@ namespace NSWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        readonly By checkout = By.Id("checkout");
+        private ElementWrapper CheckoutButton => new ElementWrapper(driver, By.Id("checkout"));
 
         // Clicks the checkout button
         public void ClickCheckout()
         {
-            driver.FindElement(checkout).Click();
+            CheckoutButton.Click();
         }
     }
 }
