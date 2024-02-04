@@ -14,7 +14,7 @@ namespace NSWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        private ElementWrapper CheckoutButton => new ElementWrapper(driver, By.Id("checkout"));
+        private ElementWrapper CheckoutButton => new ElementWrapper(driver, By.XPath("//button[@id='checkout']"));
 
         // Clicks the checkout button
         public void ClickCheckout()
@@ -23,4 +23,3 @@ namespace NSWebAutomationFramework.Application.Pages
         }
     }
 }
-

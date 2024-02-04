@@ -1,4 +1,3 @@
-using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
 using NSWebAutomationFramework.Application.Pages;
 using OpenQA.Selenium;
@@ -23,6 +22,5 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             // Call the method to click on the checkout button
             cart.ClickCheckout();
         }
-
     }
 }

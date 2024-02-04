@@ -57,7 +57,6 @@ namespace NathansWebAutomationFramework.Tests.Execution
             _feature = _extentReports.CreateTest<Feature>(featureContext.FeatureInfo.Title);
         }
 
-
         // Executed before each scenario 
         [BeforeScenario]
         public void FirstBeforeScenario(ScenarioContext scenarioContext)

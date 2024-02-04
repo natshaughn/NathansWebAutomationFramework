@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Application.Elements
 {
@@ -16,55 +13,34 @@ namespace NathansWebAutomationFramework.Application.Elements
             this.by = by;
         }
 
+        // Find and return single element
         public IWebElement FindElement()
         {
-            try
-            {
-                // Wait for the element to be present before attempting to find it
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                return wait.Until(driver => driver.FindElement(by));
-            }
-            catch (WebDriverTimeoutException)
-            {
-                Console.WriteLine($"Timeout waiting for the element to be visible: {by}");
-                throw;
-            }
+            return driver.FindElement(by);
         }
 
+        // Find and return collection of elements
         public IReadOnlyCollection<IWebElement> FindElements()
         {
-            try
-            {
-                // Wait for at least one element to be present before attempting to find them
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                return wait.Until(driver => driver.FindElements(by));
-            }
-            catch (WebDriverTimeoutException)
-            {
-                Console.WriteLine($"Timeout waiting for at least one element to be visible: {by}");
-                throw;
-            }
+            return driver.FindElements(by);
         }
 
-        public void Clear()
-        {
-            FindElement().Clear();
-        }
-
+        // Find element and click it
         public void Click()
         {
             FindElement().Click();
         }
 
+        // Find element and send specified text
         public void SendKeys(string text)
         {
             FindElement().SendKeys(text);
         }
 
+        // Find element and retrieves text
         public string GetText()
         {
             return FindElement().Text;
         }
     }
 }
-

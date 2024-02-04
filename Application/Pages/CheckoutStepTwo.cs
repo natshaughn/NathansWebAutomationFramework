@@ -14,7 +14,7 @@ namespace NathansWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        private ElementWrapper FinishButton => new ElementWrapper(driver, By.Id("finish"));
+        private ElementWrapper FinishButton => new ElementWrapper(driver, By.XPath("//button[@id='finish']"));
 
         // Clicks on the finish button
         public void ClickFinish()
@@ -23,4 +23,3 @@ namespace NathansWebAutomationFramework.Application.Pages
         }
     }
 }
-

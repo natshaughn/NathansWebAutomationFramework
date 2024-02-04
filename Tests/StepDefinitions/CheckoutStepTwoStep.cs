@@ -1,6 +1,5 @@
 using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
-using NSWebAutomationFramework.Application.Pages;
 using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.StepDefinitions
@@ -23,6 +22,5 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             // Call the method to click on the 'Finish' button in the Checkout Step Two page
             checkoutStepTwo.ClickFinish();
         }
-
     }
 }
