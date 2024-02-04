@@ -83,7 +83,6 @@ namespace NathansWebAutomationFramework.Utility
             {
                 _extentReports.AddSystemInfo("Grid URL", gridUrl);
             }
-
         }
 
         // Method to flush and close ExtentReports

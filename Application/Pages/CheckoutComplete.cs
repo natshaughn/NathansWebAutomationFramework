@@ -14,7 +14,7 @@ namespace NSWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        private ElementWrapper CheckoutCompleteMsg => new ElementWrapper(driver, By.ClassName("complete-header"));
+        private ElementWrapper CheckoutCompleteMsg => new ElementWrapper(driver, By.XPath("//div/h2"));
 
         // Gets the checkout complete message
         public void VerifyCheckoutCompleteMessage()
@@ -30,4 +30,3 @@ namespace NSWebAutomationFramework.Application.Pages
         }
     }
 }
-

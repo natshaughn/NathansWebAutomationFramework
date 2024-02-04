@@ -1,6 +1,5 @@
 using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
-using NSWebAutomationFramework.Application.Pages;
 using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.StepDefinitions
@@ -17,7 +16,6 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             this.checkoutStepOne = new CheckoutStepOne(driver);
         }
 
-
         [When(@"I enter information details '([^']*)' '([^']*)' '([^']*)'")]
         public void WhenIEnterInformationDetails(string firstNameValue, string lastNameValue, string postcodeValue)
         {
@@ -31,6 +29,5 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             // Call the method to click on the 'Continue' button in the Checkout Step One page
             checkoutStepOne.ClickContinue();
         }
-
     }
 }

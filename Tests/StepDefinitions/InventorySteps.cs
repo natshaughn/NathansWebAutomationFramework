@@ -1,6 +1,5 @@
 using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
-using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.StepDefinitions
@@ -47,7 +46,5 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             // Verify that the displayed product name matches the expected product name
             inventory.VerifyProductName(expectedProduct);
         }
-
     }
 }
-

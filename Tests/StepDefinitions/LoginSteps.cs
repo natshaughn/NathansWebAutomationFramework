@@ -50,7 +50,6 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             new InventorySteps().ThenIAmOnTheInventoryPage();
         }
 
-
         [When(@"I enter the username '([^']*)'")]
         public void WhenIEnterTheUsername(string username)
         {
@@ -78,6 +77,5 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             // Verify that an error message is displayed on the login page
             login.ErrorMessage();
         }
-
     }
 }

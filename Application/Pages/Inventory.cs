@@ -16,10 +16,10 @@ namespace NathansWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        private ElementWrapper InventoryTitle => new ElementWrapper(driver, By.ClassName("title"));
-        private ElementWrapper CartButton => new ElementWrapper(driver, By.ClassName("shopping_cart_link"));
-        private ElementWrapper ProductPrice => new ElementWrapper(driver, By.ClassName("inventory_item_price"));
-        private ElementWrapper ProductName => new ElementWrapper(driver, By.ClassName("inventory_item_name"));
+        private ElementWrapper InventoryTitle => new ElementWrapper(driver, By.XPath("//span[@class='title']"));
+        private ElementWrapper CartButton => new ElementWrapper(driver, By.XPath("//a[@class='shopping_cart_link']"));
+        private ElementWrapper ProductPrice => new ElementWrapper(driver, By.XPath("//div[@class='inventory_item']/div[2]/div[2]/div"));
+        private ElementWrapper ProductName => new ElementWrapper(driver, By.XPath("//div[@class='inventory_item']/div[2]/div/a/div"));
         private ElementWrapper ProductElement(string product) => new ElementWrapper(driver, By.XPath($"//*[@id='add-to-cart-{product}']"));
 
         // Verify Inventory page title
@@ -42,7 +42,6 @@ namespace NathansWebAutomationFramework.Application.Pages
             ProductElement(product).Click();
         }
 
-
         // Click on the cart button
         public void ClickCartButton()
         {
@@ -52,43 +51,36 @@ namespace NathansWebAutomationFramework.Application.Pages
         // Verify the products price
         public void VerifyProductPrice(decimal expectedPrice)
         {
-            var productPrices = new List<IWebElement>(ProductPrice.FindElements());
+            var productPrices = ProductPrice.FindElements();
 
-            for (int i = 0; i < productPrices.Count; i++)
+            foreach (var priceElement in productPrices)
             {
-                string actualPriceText = productPrices[i].Text;
+                // Remove currency symbols with Regex.Replace
+                string actualPriceText = Regex.Replace(priceElement.Text, @"[^\d.]", "");
 
-                // Remove currency symbols, whitespaces, and any other non-numeric characters
-                actualPriceText = Regex.Replace(actualPriceText, @"[^\d.]", "");
+                // Parse the cleaned text (without currency symbol) into a decimal value for comparison
+                decimal actualPrice = decimal.Parse(actualPriceText);
 
-                if (decimal.TryParse(actualPriceText, out decimal actualPrice))
+                if (actualPrice == expectedPrice)
                 {
-                    // Use NUnit assertion to check if the actual price matches the expected price
-                    if (actualPrice == expectedPrice)
-                    {
-                        return; // Found a match, exit the loop
-                    }
+                    return; // Found a match, exit the loop
                 }
             }
 
             // If no match is found, throw an exception
             throw new AssertionException($"No matching product price found for {expectedPrice}");
         }
-
+ 
         // Verify the products name
         public void VerifyProductName(string expectedProduct)
         {
             var productNames = ProductName.FindElements();
 
-            foreach (var productNameElement in productNames)
+            foreach (var nameElement in productNames)
             {
-                string actualProductName = productNameElement.Text;
+                string actualProductName = nameElement.Text;
 
-                // Trim extra spaces for comparison
-                string cleanedActualProductName = actualProductName.Trim();
-
-                // Use NUnit assertion to check if the cleaned actual product name matches the cleaned expected product name
-                if (cleanedActualProductName.Equals(expectedProduct.Trim(), StringComparison.OrdinalIgnoreCase))
+                if (actualProductName.Equals(expectedProduct))
                 {
                     return; // Found a match, exit the loop
                 }
@@ -97,11 +89,5 @@ namespace NathansWebAutomationFramework.Application.Pages
             // If no match is found, throw an exception
             throw new AssertionException($"No matching product name found for {expectedProduct}");
         }
-
-
-
-
-
     }
 }
-
