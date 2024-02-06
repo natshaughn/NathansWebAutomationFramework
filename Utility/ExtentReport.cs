@@ -24,7 +24,7 @@ namespace NathansWebAutomationFramework.Utility
         public static string GetTestResultPath()
         {
             string dir = AppDomain.CurrentDomain.BaseDirectory;
-            return dir.Replace("bin\\Debug\\net6.0", "TestInfo");
+            return dir.Replace("bin\\Debug\\net6.0", "TestResults");
         }
 
         // Method to delete old screenshots from the test result path
