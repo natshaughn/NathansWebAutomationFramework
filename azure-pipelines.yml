@@ -1,0 +1,52 @@
+pool:
+  name: Azure Pipelines
+  demands: vstest
+
+#Your build pipeline references the ‘BuildConfiguration’ variable, which you’ve selected to be settable at queue time. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab, and then select the option to make it settable at queue time. See https://go.microsoft.com/fwlink/?linkid=865971
+#Your build pipeline references the ‘BuildConfiguration’ variable, which you’ve selected to be settable at queue time. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab, and then select the option to make it settable at queue time. See https://go.microsoft.com/fwlink/?linkid=865971
+variables:
+  RestoreBuildProjects: '**/*.csproj'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '$(Parameters.RestoreBuildProjects)'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '$(Parameters.RestoreBuildProjects)'
+    arguments: '--configuration $(BuildConfiguration) --no-restore'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: false
+    projects: '$(Parameters.RestoreBuildProjects)'
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory) --no-build'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+  condition: succeededOrFailed()
+
+- task: VSTest@3
+  displayName: 'VsTest - Run Tests'
+  inputs:
+    testAssemblyVer2: |
+     **\NathansWebAutomationFramework.dll
+     !**\*TestAdapter.dll
+     !**\obj\**
+    runSettingsFile: TestRunSettings.runsettings
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Pipeline Artifact'
+  inputs:
+    targetPath: '$(Agent.TempDirectory)\TestResults'
+    artifactName: TestResults
