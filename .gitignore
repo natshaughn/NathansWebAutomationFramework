@@ -42,10 +42,14 @@ bld/
 Generated\ Files/
 
 # MSTest test Results
-# UNCOMMENT IF NOT WORKING [Tt]est[Rr]esult*/ New functionality added below
+[Tt]est[Rr]esult*/
+
 # Ignore PNG files and index.html within TestResults directory
 TestResults/*.png
 TestResults/index.html
+
+# Keep TestResults folder but ignore its contents
+!TestResults/
 
 [Bb]uild[Ll]og.*
 
