@@ -41,16 +41,9 @@ bld/
 # Visual Studio 2017 auto generated files
 Generated\ Files/
 
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
-
-# Ignore PNG files and index.html within TestResults directory
-TestResults/*.png
-TestResults/index.html
-
-# Keep TestResults folder but ignore its contents
-!TestResults/
-
 [Bb]uild[Ll]og.*
 
 # NUnit
