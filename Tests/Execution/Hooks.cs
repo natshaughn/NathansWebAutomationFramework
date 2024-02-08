@@ -105,8 +105,12 @@ namespace NathansWebAutomationFramework.Tests.Execution
                 try
                 {
                     // Attempt to capture and attach a screenshot to the report
+                    string screenshotPath = AddScreenshot(driver, scenarioContext);
                     _scenario.CreateNode<Given>(stepName).Fail(scenarioContext.TestError.Message,
-                        MediaEntityBuilder.CreateScreenCaptureFromPath(AddScreenshot(driver, scenarioContext)).Build());
+                        MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+
+                    // Attach the screenshot to the test results using TestContext
+                    TestContext.AddTestAttachment(screenshotPath, "FailureScreenshot");
                 }
                 catch (Exception ex)
                 {
@@ -134,5 +138,6 @@ namespace NathansWebAutomationFramework.Tests.Execution
                 }
             }
         }
+
     }
 }
