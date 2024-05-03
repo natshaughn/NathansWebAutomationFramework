@@ -23,7 +23,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
         // Initializes the WebDriver based on the browser and URL
         public static void Init(string browser, string url)
         {
-            Console.WriteLine($"Initializing WebDriver with browser: {browser}, url: {url}");
+            Console.WriteLine($"Initialising WebDriver with browser: {browser}, url: {url}");
 
             switch (browser)
             {

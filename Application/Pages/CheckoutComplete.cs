@@ -16,17 +16,10 @@ namespace NSWebAutomationFramework.Application.Pages
         // Locating specific elements on the page - if changed, can change here
         private ElementWrapper CheckoutCompleteMsg => new ElementWrapper(driver, By.XPath("//div/h2"));
 
-        // Gets the checkout complete message
-        public void VerifyCheckoutCompleteMessage()
+        // Gets the checkout complete message 
+        public string GetCheckoutCompleteMessage()
         {
-            string expectedMessage = "Thank you for your order!";
-            string actualMessage = CheckoutCompleteMsg.GetText();
-
-            if (!actualMessage.Equals(expectedMessage))
-            {
-                Console.WriteLine($"Expected message: {expectedMessage}, Actual message: {actualMessage}");
-                throw new Exception("Checkout complete message mismatch");
-            }
+            return CheckoutCompleteMsg.GetText();
         }
     }
 }
