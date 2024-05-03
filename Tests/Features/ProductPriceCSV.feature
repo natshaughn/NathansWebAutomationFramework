@@ -1,6 +1,6 @@
 ﻿Feature: ProductPriceCSV
 
-A short summary of the feature
+Verify the price of the products on the page 
 
 @DataSource:SauceLabsPriceList.csv
 Scenario: Using .csv file to confirm product prices

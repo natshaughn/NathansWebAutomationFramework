@@ -1,6 +1,5 @@
 using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
-using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.StepDefinitions
@@ -20,14 +19,17 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [Given(@"I am on the login page")]
         public void GivenIAmOnTheLoginPage()
         {
-            // Get the base URL from the test context parameters
+            // Get the base URL from the configuration
             var baseUrl = TestContext.Parameters.Get("BaseUrl")!;
 
             // Use DriverManager.GoTo to navigate to the URL
             DriverManager.GoTo(baseUrl);
 
-            // Verify that the login page is displayed
-            login.LoginPageVerify();
+            // Get the actual title of the login page
+            string actualTitle = login.GetLoginPageTitle();
+
+            // Assert that the actual title matches the expected title
+            Assert.That(actualTitle, Is.EqualTo("Swag Labs"));
         }
 
         [Given(@"I have logged in")]
@@ -74,8 +76,14 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [Then(@"an error message should appear")]
         public void ThenAnErrorMessageShouldAppear()
         {
-            // Verify that an error message is displayed on the login page
-            login.ErrorMessage();
+            // Get the actual error message from the page
+            string actualErrorMessage = login.GetErrorMessage();
+
+            // Define the expected error message
+            string expectedErrorMessage = "Epic sadface: Username and password do not match any user in this service";
+
+            // Assert that the actual error message matches the expected error message
+            Assert.That(actualErrorMessage, Is.EqualTo(expectedErrorMessage));
         }
     }
 }

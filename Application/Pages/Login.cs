@@ -19,26 +19,19 @@ namespace NathansWebAutomationFramework.Application.Pages
         private ElementWrapper PasswordInput => new ElementWrapper(driver, By.XPath("//input[@id='password']"));
         private ElementWrapper UserInput => new ElementWrapper(driver, By.XPath("//input[@id='user-name']"));
 
-        // Verify the login page has the expected title
-        public void LoginPageVerify()
+        // Get the Login page title
+        public string GetLoginPageTitle()
         {
-            string actualTitle = LoginTitle.GetText();
-            string expectedTitle = "Swag Labs";
-
-            if (!actualTitle.Equals(expectedTitle))
-            {
-                Console.WriteLine($"Expected title: {expectedTitle}, Actual title: {actualTitle}");
-                throw new Exception("Login page title mismatch");
-            }
+            return LoginTitle.GetText();
         }
 
-        // Inputs a username 
+        // Input a username 
         public void InputUser(string text)
         {
             UserInput.SendKeys(text);
         }
 
-        // Inputs a password
+        // Input a password
         public void InputPassword(string text)
         {
             PasswordInput.SendKeys(text);
@@ -50,17 +43,11 @@ namespace NathansWebAutomationFramework.Application.Pages
             LoginButton.Click();
         }
 
-        // Check the error message is correct 
-        public void ErrorMessage()
+        // Get the error message
+        public string GetErrorMessage()
         {
-            string expectedErrorMessage = "Epic sadface: Username and password do not match any user in this service";
-            string actualErrorMessage = LoginErrorMsg.GetText();
-
-            if (!actualErrorMessage.Equals(expectedErrorMessage))
-            {
-                Console.WriteLine($"Expected error message: {expectedErrorMessage}, Actual error message: {actualErrorMessage}");
-                throw new Exception("Error message mismatch");
-            }
+            return LoginErrorMsg.GetText();
         }
+
     }
 }
