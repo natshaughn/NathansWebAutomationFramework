@@ -14,12 +14,11 @@ namespace NathansWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
+        private ElementWrapper ContinueButton => new ElementWrapper(driver, By.XPath("//input[@id='continue']"));
         private ElementWrapper FirstNameInput => new ElementWrapper(driver, By.XPath("//input[@id='first-name']"));
         private ElementWrapper LastNameInput => new ElementWrapper(driver, By.XPath("//input[@id='last-name']"));
         private ElementWrapper PostcodeInput => new ElementWrapper(driver, By.XPath("//input[@id='postal-code']"));
-        private ElementWrapper ContinueButton => new ElementWrapper(driver, By.XPath("//input[@id='continue']"));
-
-
+        
         // Enters the customer details
         public void EnterDetails(string firstNameValue, string lastNameValue, string postcodeValue)
         {
