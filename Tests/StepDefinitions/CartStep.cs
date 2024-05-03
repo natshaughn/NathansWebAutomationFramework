@@ -21,6 +21,8 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         {
             // Call the method to click on the checkout button
             cart.ClickCheckout();
+
+            // add assertions 
         }
     }
 }

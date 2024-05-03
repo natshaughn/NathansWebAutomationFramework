@@ -13,11 +13,11 @@ namespace NathansWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        private ElementWrapper LoginTitle => new ElementWrapper(driver, By.XPath("//div[@class='login_logo']"));
-        private ElementWrapper UserInput => new ElementWrapper(driver, By.XPath("//input[@id='user-name']"));
-        private ElementWrapper PasswordInput => new ElementWrapper(driver, By.XPath("//input[@id='password']"));
         private ElementWrapper LoginButton => new ElementWrapper(driver, By.XPath("//input[@id='login-button']"));
         private ElementWrapper LoginErrorMsg => new ElementWrapper(driver, By.XPath("//div/h3"));
+        private ElementWrapper LoginTitle => new ElementWrapper(driver, By.XPath("//div[@class='login_logo']"));
+        private ElementWrapper PasswordInput => new ElementWrapper(driver, By.XPath("//input[@id='password']"));
+        private ElementWrapper UserInput => new ElementWrapper(driver, By.XPath("//input[@id='user-name']"));
 
         // Verify the login page has the expected title
         public void LoginPageVerify()

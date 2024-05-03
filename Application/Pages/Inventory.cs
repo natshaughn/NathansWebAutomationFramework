@@ -16,11 +16,11 @@ namespace NathansWebAutomationFramework.Application.Pages
         }
 
         // Locating specific elements on the page - if changed, can change here
-        private ElementWrapper InventoryTitle => new ElementWrapper(driver, By.XPath("//span[@class='title']"));
         private ElementWrapper CartButton => new ElementWrapper(driver, By.XPath("//a[@class='shopping_cart_link']"));
-        private ElementWrapper ProductPrice => new ElementWrapper(driver, By.XPath("//div[@class='inventory_item']/div[2]/div[2]/div"));
-        private ElementWrapper ProductName => new ElementWrapper(driver, By.XPath("//div[@class='inventory_item']/div[2]/div/a/div"));
+        private ElementWrapper InventoryTitle => new ElementWrapper(driver, By.XPath("//span[@class='title']"));
         private ElementWrapper ProductElement(string product) => new ElementWrapper(driver, By.XPath($"//*[@id='add-to-cart-{product}']"));
+        private ElementWrapper ProductName => new ElementWrapper(driver, By.XPath("//div[@class='inventory_item']/div[2]/div/a/div"));
+        private ElementWrapper ProductPrice => new ElementWrapper(driver, By.XPath("//div[@class='inventory_item']/div[2]/div[2]/div"));
 
         // Verify Inventory page title
         public void FindTitle()
