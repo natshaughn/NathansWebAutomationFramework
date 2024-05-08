@@ -18,27 +18,25 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [When(@"I add '([^']*)' to cart")]
         public void WhenIAddToCart(string product)
         {
-            // Call the method to add the specified product to the cart
             inventory.AddProductToCart(product);
         }
 
         [When(@"I click on the cart button")]
         public void WhenIClickOnTheCartButton()
         {
-            // Call the method to click on the cart button
             inventory.ClickCartButton();
         }
 
         [Then(@"I am on the inventory page")]
         public void ThenIAmOnTheInventoryPage()
         {
-            // Get the actual title of the inventory page
-            string actualTitle = inventory.GetTitle();
+            string actualTitle = inventory.GetInventoryPageTitle();
+            string expectedTitle = "Products";
 
-            // Assert that the actual title matches the expected title
-            Assert.That(actualTitle, Is.EqualTo("Products"));
+            Assert.That(actualTitle, Is.EqualTo(expectedTitle), $"Expected title {expectedTitle}, Actual title: {actualTitle}");
         }
 
+        // ASK ABOUT THIS ONE 
         [Then(@"the (.*) of the (.*) will be correct")]
         public void ThenThePriceOfTheProductWillBeCorrect(decimal expectedPrice, string expectedProduct)
         {
