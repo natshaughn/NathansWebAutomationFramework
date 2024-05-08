@@ -1,6 +1,4 @@
-﻿using OpenQA.Selenium;
-
-namespace NathansWebAutomationFramework.Application.Elements
+﻿namespace NathansWebAutomationFramework.Application.Elements
 {
     public class ElementWrapper
     {
@@ -13,34 +11,39 @@ namespace NathansWebAutomationFramework.Application.Elements
             this.by = by;
         }
 
-        // Find and return single element
+        // Return single element
         public IWebElement FindElement()
         {
             return driver.FindElement(by);
         }
 
-        // Find and return collection of elements
+        // Return a group of elements
         public IReadOnlyCollection<IWebElement> FindElements()
         {
             return driver.FindElements(by);
         }
 
-        // Find element and click it
+        // Click an element
         public void Click()
         {
             FindElement().Click();
         }
 
-        // Find element and send specified text
+        // Send text to an element
         public void SendKeys(string text)
         {
             FindElement().SendKeys(text);
         }
 
-        // Find element and retrieves text
+        // Get text from an element
         public string GetText()
         {
             return FindElement().Text;
+        }
+
+        public List <string> GetAllText()
+        {
+            return FindElements().Select(x => x.Text).ToList(); 
         }
     }
 }

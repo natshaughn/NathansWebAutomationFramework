@@ -1,9 +1,7 @@
 ﻿using NathansWebAutomationFramework.Application.Elements;
-using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Application.Pages
 {
-    // Represents the Login Page of the application
     public class Login
     {
         private readonly IWebDriver driver;
@@ -12,38 +10,32 @@ namespace NathansWebAutomationFramework.Application.Pages
             this.driver = driver;
         }
 
-        // Locating specific elements on the page - if changed, can change here
         private ElementWrapper LoginButton => new ElementWrapper(driver, By.XPath("//input[@id='login-button']"));
         private ElementWrapper LoginErrorMsg => new ElementWrapper(driver, By.XPath("//div/h3"));
         private ElementWrapper LoginTitle => new ElementWrapper(driver, By.XPath("//div[@class='login_logo']"));
         private ElementWrapper PasswordInput => new ElementWrapper(driver, By.XPath("//input[@id='password']"));
         private ElementWrapper UserInput => new ElementWrapper(driver, By.XPath("//input[@id='user-name']"));
 
-        // Get the Login page title
         public string GetLoginPageTitle()
         {
             return LoginTitle.GetText();
         }
 
-        // Input a username 
-        public void InputUser(string text)
+        public void InputUsername(string text)
         {
             UserInput.SendKeys(text);
         }
 
-        // Input a password
         public void InputPassword(string text)
         {
             PasswordInput.SendKeys(text);
         }
 
-        // Click the login button on the page
-        public void ClickLogin()
+        public void ClickLoginButton()
         {
             LoginButton.Click();
         }
 
-        // Get the error message
         public string GetErrorMessage()
         {
             return LoginErrorMsg.GetText();

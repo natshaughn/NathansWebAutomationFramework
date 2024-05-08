@@ -1,16 +1,15 @@
 using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
-using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.StepDefinitions
 {
     [Binding]
-    public class CheckoutStepTwoStep
+    public class CheckoutStepTwoSteps
     {
         private readonly IWebDriver driver;
         private readonly CheckoutStepTwo checkoutStepTwo;
 
-        public CheckoutStepTwoStep()
+        public CheckoutStepTwoSteps()
         {
             this.driver = DriverManager.GetDriver();
             this.checkoutStepTwo = new CheckoutStepTwo(driver);
@@ -19,8 +18,7 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [When(@"I click finish")]
         public void WhenIClickFinish()
         {
-            // Call the method to click on the 'Finish' button in the Checkout Step Two page
-            checkoutStepTwo.ClickFinish();
+            checkoutStepTwo.ClickFinishButton();
         }
     }
 }

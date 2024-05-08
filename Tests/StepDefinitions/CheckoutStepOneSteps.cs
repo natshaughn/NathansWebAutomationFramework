@@ -1,16 +1,15 @@
 using NathansWebAutomationFramework.Application.Pages;
 using NathansWebAutomationFramework.Tests.Execution;
-using OpenQA.Selenium;
 
 namespace NathansWebAutomationFramework.Tests.StepDefinitions
 {
     [Binding]
-    public class CheckoutStepOneStep
+    public class CheckoutStepOneSteps
     {
         private readonly IWebDriver driver;
         private readonly CheckoutStepOne checkoutStepOne;
 
-        public CheckoutStepOneStep()
+        public CheckoutStepOneSteps()
         {
             this.driver = DriverManager.GetDriver();
             this.checkoutStepOne = new CheckoutStepOne(driver);
@@ -19,15 +18,13 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [When(@"I enter information details '([^']*)' '([^']*)' '([^']*)'")]
         public void WhenIEnterInformationDetails(string firstNameValue, string lastNameValue, string postcodeValue)
         {
-            // Call the method to enter details on the Checkout Step One page
-            checkoutStepOne.EnterDetails(firstNameValue, lastNameValue, postcodeValue);
+            checkoutStepOne.EnterCustomerDetails(firstNameValue, lastNameValue, postcodeValue);
         }
 
         [When(@"I click continue")]
         public void WhenIClickContinue()
         {
-            // Call the method to click on the 'Continue' button in the Checkout Step One page
-            checkoutStepOne.ClickContinue();
+            checkoutStepOne.ClickContinueButton();
         }
     }
 }
