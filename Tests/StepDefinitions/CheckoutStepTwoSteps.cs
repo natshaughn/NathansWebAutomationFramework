@@ -11,8 +11,8 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
 
         public CheckoutStepTwoSteps()
         {
-            this.driver = DriverManager.GetDriver();
-            this.checkoutStepTwo = new CheckoutStepTwo(driver);
+            driver = DriverManager.GetDriver();
+            checkoutStepTwo = new CheckoutStepTwo(driver);
         }
 
         [When(@"I click finish")]

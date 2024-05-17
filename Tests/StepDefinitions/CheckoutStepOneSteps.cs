@@ -11,8 +11,8 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
 
         public CheckoutStepOneSteps()
         {
-            this.driver = DriverManager.GetDriver();
-            this.checkoutStepOne = new CheckoutStepOne(driver);
+            driver = DriverManager.GetDriver();
+            checkoutStepOne = new CheckoutStepOne(driver);
         }
 
         [When(@"I enter information details '([^']*)' '([^']*)' '([^']*)'")]
