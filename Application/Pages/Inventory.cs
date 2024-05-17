@@ -14,8 +14,9 @@ namespace NathansWebAutomationFramework.Application.Pages
         private ElementWrapper CartButton => new ElementWrapper(driver, By.XPath("//a[@class='shopping_cart_link']"));
         private ElementWrapper InventoryTitle => new ElementWrapper(driver, By.XPath("//span[@class='title']"));
         private ElementWrapper ProductElement(string product) => new ElementWrapper(driver, By.XPath($"//*[@id='add-to-cart-{product}']"));
-        private ElementWrapper ProductNames => new ElementWrapper(driver, By.XPath("//div[@class='inventory_item']/div[2]/div/a/div"));
-        private ElementWrapper ProductPrices => new ElementWrapper(driver, By.XPath("//div[@class='inventory_item']/div[2]/div[2]/div"));
+        private ElementWrapper ProductName(string product) => new ElementWrapper(driver, By.XPath($"//div[@id='inventory_container']//div[contains(@class, 'inventory_item') and contains(text(), '{product}')]"));
+        private ElementWrapper ProductPrice(string product) => new ElementWrapper(driver, By.XPath($"//div[@id='inventory_container']//div[contains(@class, 'inventory_item') and .//div[contains(text(), '{product}')]]//div[contains(@class, 'inventory_item_price')]"));
+
 
         public string GetInventoryPageTitle()
         {
@@ -32,22 +33,14 @@ namespace NathansWebAutomationFramework.Application.Pages
             CartButton.Click();
         }
 
-        // Method to get all product names MAYBE CHANGE THIS ONE 
-        public List<string> GetAllProductNames()
+        public string GetProductName(string product)
         {
-            // Uses Selenium to find all elements that match the given XPath for product names,
-            // and then converts each element to its text representation (the name of the product).
-            //return ProductNames.FindElements().Select(element => element.Text).ToList();
-            return ProductNames.GetAllText();
+            return ProductName(product).GetText();
         }
 
-        // Method to get all product prices from the webpage
-        public List<decimal> GetAllProductPrices()
+        public string GetProductPrice(string product)
         {
-            // Uses Selenium to find all elements that match the given XPath for product prices,
-            // converts each element's text to a decimal after removing the dollar sign,
-            // this allows numerical comparison and operations on the prices.
-            return ProductPrices.FindElements().Select(x => decimal.Parse(x.Text.Trim('$'))).ToList();
+            return ProductPrice(product).GetText().TrimStart('$');
         }
     }
 }

@@ -1,101 +1,61 @@
 ﻿using NathansWebAutomationFramework.Utility;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
-using BoDi;
 
 namespace NathansWebAutomationFramework.Tests.Execution
 {
     [Binding]
     public class Hooks : ExtentReport
     {
-        private readonly IObjectContainer ObjectContainer;
-
-        public Hooks(IObjectContainer objectContainer)
-        {
-            ObjectContainer = objectContainer;
-        }
-
-        // Executed before entire test run
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
-            Console.WriteLine("Running before test run...");
-
-            // Retrieve base URL and browser from configuration
             string baseUrl = TestContext.Parameters["BaseUrl"];
             string browser = TestContext.Parameters["Browser"];
-
-            // Construct the Selenium Grid URL based on the Docker network
             string gridUrl = "http://selenium-hub:4444/wd/hub";
 
-            // Create an instance of AppInfo and set the properties
             AppInfo appInfo = new AppInfo()
             {
                 BaseUrl = baseUrl,
                 Browser = browser
             };
 
-            // Call ExtentReportInit with the created AppInfo properties and the Selenium Grid URL
             ExtentReportInit(appInfo, gridUrl);
         }
 
-        // Executed after entire test run
         [AfterTestRun]
         public static void AfterTestRun()
         {
-            Console.WriteLine("Running after test run...");
-            ExtentReportTearDown(); // Flushing/ creating report
+            ExtentReportTearDown(); 
         }
 
-        // Executed before each feature
         [BeforeFeature]
-        public static void BeforeFeature(FeatureContext featureContext) // feature context reference variable - can get feature name 
+        public static void BeforeFeature(FeatureContext featureContext) 
         {
-            Console.WriteLine("Running before feature...");
             _feature = _extentReports.CreateTest<Feature>(featureContext.FeatureInfo.Title);
-            // extent reports object - calling CreateTest method <Feature> = Gherkin keyword - get feature name, getting the title will get title of any feature file
-            // Create test, assign to _feature
         }
 
-        // Executed before each scenario 
         [BeforeScenario]
         public void FirstBeforeScenario(ScenarioContext scenarioContext)
         {
-            Console.WriteLine("Running before scenario...");
-
-            // Retrieve browser and base URL from configuration
             string browser = TestContext.Parameters["Browser"];
             string baseUrl = TestContext.Parameters["BaseUrl"];
-
-            Console.WriteLine($"Browser: {browser}, BaseUrl: {baseUrl}");
-
-            // Initialise WebDriver using DriverManager
             DriverManager.Init(browser, baseUrl);
 
-            // Register WebDriver instance with BoDi container - iWebDriver return driver
-            ObjectContainer.RegisterInstanceAs<IWebDriver>(DriverManager.GetDriver());
-
-            // Create ExtentReport node for the scenario
             _scenario = _feature.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title);
-            // After creating _feature, then do same with scenario, get scenario name
         }
 
-        // Executed after each scenario
         [AfterScenario]
         public static void AfterScenario()
         {
             DriverManager.CloseDriver();
-
-            // Pass AppInfo to ExtentReport class
             ExtentReportTearDown();
         }
 
-        // Executed after each step
         [AfterStep]
         public void AfterStep(ScenarioContext scenarioContext)
         {
-            Console.WriteLine("Running after step....");
-            IWebDriver driver = ObjectContainer.Resolve<IWebDriver>();
+            IWebDriver driver = DriverManager.GetDriver();
 
             string stepType = scenarioContext.StepContext.StepInfo.StepDefinitionType.ToString();
             string stepName = scenarioContext.StepContext.StepInfo.Text;
@@ -118,12 +78,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
                 {
                     _scenario.CreateNode<And>(stepName);
                 }
-            }
-
-            // When scenario fails 
-            if (scenarioContext.TestError != null)
-            {
-                // Attach the screenshot to the test results using TestContext
+            } else {
                 string screenshotPath = AddScreenshot(driver, scenarioContext);
                 TestContext.AddTestAttachment(screenshotPath, "FailureScreenshot");
 
@@ -149,6 +104,5 @@ namespace NathansWebAutomationFramework.Tests.Execution
                 }
             }
         }
-
     }
 }

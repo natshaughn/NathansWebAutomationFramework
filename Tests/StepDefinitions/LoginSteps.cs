@@ -11,17 +11,14 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
 
         public LoginSteps()
         {
-            this.driver = DriverManager.GetDriver();
-            this.login = new Login(driver);
+            driver = DriverManager.GetDriver();
+            login = new Login(driver);
         }
 
         [Given(@"I am on the login page")]
         public void GivenIAmOnTheLoginPage()
         {
-            // Get the base URL from the configuration
             var baseUrl = TestContext.Parameters.Get("BaseUrl")!;
-
-            // Use DriverManager.GoTo to navigate to the URL
             DriverManager.GoTo(baseUrl);
 
             string actualTitle = login.GetLoginPageTitle();
@@ -33,12 +30,8 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [Given(@"I have logged in")]
         public void GivenIHaveLoggedIn()
         {
-            LoginSteps loginSteps = new LoginSteps();
-            loginSteps.GivenIAmOnTheLoginPage();
-            loginSteps.WhenIEnterTheUsername("standard_user");
-            loginSteps.WhenIEnterThePassword("secret_sauce");
-            loginSteps.WhenIClickTheLoginButton();
-            new InventorySteps().ThenIAmOnTheInventoryPage();
+            GivenIAmOnTheLoginPage();
+            login.LoginToSwagLabs("standard_user", "secret_sauce");
         }
 
         [When(@"I enter the username '([^']*)'")]

@@ -11,8 +11,8 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
 
         public CheckoutCompleteSteps()
         {
-            this.driver = DriverManager.GetDriver();
-            this.checkoutComplete = new CheckoutComplete(driver);
+            driver = DriverManager.GetDriver();
+            checkoutComplete = new CheckoutComplete(driver);
         }
 
         [Then(@"a message will appear confirming my order")]
@@ -21,7 +21,7 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             string actualMessage = checkoutComplete.GetCheckoutCompleteMessage();
             string expectedMessage = "Thank you for your order!";
 
-            Assert.That(actualMessage, Is.EqualTo(expectedMessage), $"Expected message: {expectedMessage}, Actual message: {actualMessage}");
+            Assert.That(actualMessage, Is.EqualTo(expectedMessage), $"Actual message: {actualMessage}, Expected message: {expectedMessage}");
         }
     }
 }

@@ -40,6 +40,11 @@ namespace NathansWebAutomationFramework.Application.Pages
         {
             return LoginErrorMsg.GetText();
         }
-
+        public void LoginToSwagLabs(string username, string password)
+        {
+            InputUsername(username);
+            InputPassword(password);
+            ClickLoginButton();
+        }
     }
 }

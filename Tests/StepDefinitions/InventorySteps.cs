@@ -11,8 +11,8 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
 
         public InventorySteps()
         {
-            this.driver = DriverManager.GetDriver();
-            this.inventory = new Inventory(driver);
+            driver = DriverManager.GetDriver();
+            inventory = new Inventory(driver);
         }
 
         [When(@"I add '([^']*)' to cart")]
@@ -33,29 +33,17 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             string actualTitle = inventory.GetInventoryPageTitle();
             string expectedTitle = "Products";
 
-            Assert.That(actualTitle, Is.EqualTo(expectedTitle), $"Expected title {expectedTitle}, Actual title: {actualTitle}");
+            Assert.That(actualTitle, Is.EqualTo(expectedTitle), $"Actual title: {actualTitle}, Expected title: {expectedTitle}");
         }
 
-        // ASK ABOUT THIS ONE 
         [Then(@"the (.*) of the (.*) will be correct")]
-        public void ThenThePriceOfTheProductWillBeCorrect(decimal expectedPrice, string expectedProduct)
+        public void ThenThePriceOfTheProductWillBeCorrect(string expectedPrice, string product)
         {
-            // Retrieve all product names from the page
-            var productNames = inventory.GetAllProductNames();
-            // Retrieve all product prices from the page
-            var productPrices = inventory.GetAllProductPrices();
+            string actualProduct = inventory.GetProductName(product);
+            string actualPrice = inventory.GetProductPrice(product);
 
-            // Attempt to find the index of the expected product in the list of product names
-            int productIndex = productNames.IndexOf(expectedProduct);
-            // Check if the product was not found; if not, fail the test with a message
-            if (productIndex == -1)
-                Assert.Fail($"Product '{expectedProduct}' not found on the page.");
-
-            // Retrieve the price for the product using the index found above
-            decimal actualPrice = productPrices[productIndex];
-            // Assert that the actual price matches the expected price,
-            // if not, report the discrepancy with a failure message
-            Assert.That(actualPrice, Is.EqualTo(expectedPrice), $"Expected price for '{expectedProduct}' is {expectedPrice}, but found {actualPrice}.");
+            Assert.That(actualProduct, Is.EqualTo(product), $" Actual product: '{actualProduct}', Expected product: '{product}'");
+            Assert.That(actualPrice, Is.EqualTo(expectedPrice), $"Expected price for '{product}' is {expectedPrice}, but found {actualPrice}");
         }
     }
 }
