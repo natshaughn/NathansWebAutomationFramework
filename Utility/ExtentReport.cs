@@ -16,12 +16,12 @@ namespace NathansWebAutomationFramework.Utility
         public static ExtentTest? _feature;
         public static ExtentTest? _scenario;
 
-        public static String dir = AppDomain.CurrentDomain.BaseDirectory;
-        public static String testResultPath = dir.Replace("bin\\Debug\\net6.0", "TestResults");
+        public static string dir = AppDomain.CurrentDomain.BaseDirectory;
+        public static string testResultPath = dir.Replace("bin\\Debug\\net6.0", "TestResults");
 
         public static void ExtentReportInit(AppInfo appInfo, string gridUrl)
         {
-            var htmlReporter = new ExtentHtmlReporter(testResultPath);
+            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(testResultPath);
             htmlReporter.Config.ReportName = "Web Automation Report";
             htmlReporter.Config.DocumentTitle = "Web Automation Report";
             htmlReporter.Config.Theme = Theme.Standard;
