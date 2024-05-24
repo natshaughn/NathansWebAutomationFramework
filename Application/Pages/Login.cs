@@ -16,21 +16,6 @@ namespace NathansWebAutomationFramework.Application.Pages
         private ElementWrapper PasswordInput => new ElementWrapper(driver, By.XPath("//input[@id='password']"));
         private ElementWrapper UserInput => new ElementWrapper(driver, By.XPath("//input[@id='user-name']"));
 
-        public string GetLoginPageTitle()
-        {
-            return LoginTitle.GetText();
-        }
-
-        public void InputUsername(string text)
-        {
-            UserInput.SendKeys(text);
-        }
-
-        public void InputPassword(string text)
-        {
-            PasswordInput.SendKeys(text);
-        }
-
         public void ClickLoginButton()
         {
             LoginButton.Click();
@@ -40,6 +25,20 @@ namespace NathansWebAutomationFramework.Application.Pages
         {
             return LoginErrorMsg.GetText();
         }
+        public string GetLoginPageTitle()
+        {
+            return LoginTitle.GetText();
+        }
+        public void InputPassword(string text)
+        {
+            PasswordInput.SendKeys(text);
+        }
+
+        public void InputUsername(string text)
+        {
+            UserInput.SendKeys(text);
+        }
+
         public void LoginToSwagLabs(string username, string password)
         {
             InputUsername(username);

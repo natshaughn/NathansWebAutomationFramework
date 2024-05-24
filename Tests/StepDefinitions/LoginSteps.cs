@@ -18,7 +18,7 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
         [Given(@"I am on the login page")]
         public void GivenIAmOnTheLoginPage()
         {
-            var baseUrl = TestContext.Parameters.Get("BaseUrl")!;
+            string baseUrl = TestContext.Parameters.Get("BaseUrl")!;
             DriverManager.GoTo(baseUrl);
 
             string actualTitle = login.GetLoginPageTitle();

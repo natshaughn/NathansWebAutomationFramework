@@ -11,24 +11,24 @@
             this.by = by;
         }
 
-        public IWebElement FindElement()
-        {
-            return driver.FindElement(by);
-        }
-
         public void Click()
         {
             FindElement().Click();
         }
 
-        public void SendKeys(string text)
+        public IWebElement FindElement()
         {
-            FindElement().SendKeys(text);
+            return driver.FindElement(by);
         }
 
         public string GetText()
         {
             return FindElement().Text;
+        }
+
+        public void SendKeys(string text)
+        {
+            FindElement().SendKeys(text);
         }
     }
 }

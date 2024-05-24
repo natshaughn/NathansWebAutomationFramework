@@ -55,7 +55,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             }
             else
             {
-                throw new Exception("WebDriver is not initialised. Check the browser and url parameters.");
+                throw new Exception("Check the browser and url parameters.");
             }
         }
 
