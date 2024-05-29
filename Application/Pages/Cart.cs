@@ -11,7 +11,7 @@ namespace NSWebAutomationFramework.Application.Pages
             this.driver = driver;
         }
 
-        private ElementWrapper CheckoutButton => new ElementWrapper(driver, By.XPath("//button[@id='checkout']"));
+        private ElementWrapper CheckoutButton => new(driver, By.Id("checkout"));
 
         public void ClickCheckoutButton()
         {

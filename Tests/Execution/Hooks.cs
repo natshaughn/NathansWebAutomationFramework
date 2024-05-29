@@ -14,7 +14,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             string browser = TestContext.Parameters["Browser"];
             string gridUrl = "http://selenium-hub:4444/wd/hub";
 
-            AppInfo appInfo = new AppInfo()
+            AppInfo appInfo = new()
             {
                 BaseUrl = baseUrl,
                 Browser = browser

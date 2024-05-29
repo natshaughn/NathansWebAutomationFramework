@@ -21,13 +21,7 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             inventory.AddProductToCart(product);
         }
 
-        [When(@"I click on the cart button")]
-        public void WhenIClickOnTheCartButton()
-        {
-            inventory.ClickCartButton();
-        }
-
-        [Then(@"I am on the inventory page")]
+        [Then(@"I am on the inventory page"), When(@"I am on the inventory page")]
         public void ThenIAmOnTheInventoryPage()
         {
             string actualTitle = inventory.GetInventoryPageTitle();

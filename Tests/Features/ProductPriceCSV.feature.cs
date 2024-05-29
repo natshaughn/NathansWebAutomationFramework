@@ -109,6 +109,9 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
+ testRunner.When("I am on the inventory page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 9
  testRunner.Then(string.Format("the {0} of the {1} will be correct", price, product), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

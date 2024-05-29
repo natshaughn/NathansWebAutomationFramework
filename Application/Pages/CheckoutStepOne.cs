@@ -11,10 +11,10 @@ namespace NathansWebAutomationFramework.Application.Pages
             this.driver = driver;
         }
 
-        private ElementWrapper ContinueButton => new ElementWrapper(driver, By.XPath("//input[@id='continue']"));
-        private ElementWrapper FirstNameInput => new ElementWrapper(driver, By.XPath("//input[@id='first-name']"));
-        private ElementWrapper LastNameInput => new ElementWrapper(driver, By.XPath("//input[@id='last-name']"));
-        private ElementWrapper PostcodeInput => new ElementWrapper(driver, By.XPath("//input[@id='postal-code']"));
+        private ElementWrapper ContinueButton => new(driver, By.Id("continue"));
+        private ElementWrapper FirstNameInput => new(driver, By.Id("first-name"));
+        private ElementWrapper LastNameInput => new(driver, By.Id("last-name"));
+        private ElementWrapper PostcodeInput => new(driver, By.Id("postal-code"));
 
         public void ClickContinueButton()
         {
