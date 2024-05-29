@@ -15,6 +15,17 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             checkoutComplete = new CheckoutComplete(driver);
         }
 
+        [When(@"I complete the checkout process")]
+        public void WhenICompleteTheCheckoutProcess()
+        {
+            string firstName = Guid.NewGuid().ToString();  
+            string lastName = Guid.NewGuid().ToString();
+            string postcode = Guid.NewGuid().ToString();
+
+            checkoutComplete.CompleteCheckoutProcess(firstName, lastName, postcode);
+        }
+
+
         [Then(@"a message will appear confirming my order")]
         public void ThenAMessageWillAppearConfirmingMyOrder()
         {

@@ -14,11 +14,5 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             driver = DriverManager.GetDriver();
             checkoutStepTwo = new CheckoutStepTwo(driver);
         }
-
-        [When(@"I click finish")]
-        public void WhenIClickFinish()
-        {
-            checkoutStepTwo.ClickFinishButton();
-        }
     }
 }

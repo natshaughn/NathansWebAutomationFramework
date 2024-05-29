@@ -14,17 +14,5 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             driver = DriverManager.GetDriver();
             checkoutStepOne = new CheckoutStepOne(driver);
         }
-
-        [When(@"I enter information details '([^']*)' '([^']*)' '([^']*)'")]
-        public void WhenIEnterInformationDetails(string firstNameValue, string lastNameValue, string postcodeValue)
-        {
-            checkoutStepOne.EnterCustomerDetails(firstNameValue, lastNameValue, postcodeValue);
-        }
-
-        [When(@"I click continue")]
-        public void WhenIClickContinue()
-        {
-            checkoutStepOne.ClickContinueButton();
-        }
     }
 }

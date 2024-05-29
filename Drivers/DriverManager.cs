@@ -23,7 +23,7 @@ namespace NathansWebAutomationFramework.Tests.Execution
             switch (browser)
             {
                 case "Chrome":
-                    ChromeOptions chromeOptions = new ChromeOptions();
+                    ChromeOptions chromeOptions = new();
                     chromeOptions.AddArgument("headless"); 
                     driver = new ChromeDriver(chromeOptions);
                     break;

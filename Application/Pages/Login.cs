@@ -10,11 +10,11 @@ namespace NathansWebAutomationFramework.Application.Pages
             this.driver = driver;
         }
 
-        private ElementWrapper LoginButton => new ElementWrapper(driver, By.XPath("//input[@id='login-button']"));
-        private ElementWrapper LoginErrorMsg => new ElementWrapper(driver, By.XPath("//div/h3"));
-        private ElementWrapper LoginTitle => new ElementWrapper(driver, By.XPath("//div[@class='login_logo']"));
-        private ElementWrapper PasswordInput => new ElementWrapper(driver, By.XPath("//input[@id='password']"));
-        private ElementWrapper UserInput => new ElementWrapper(driver, By.XPath("//input[@id='user-name']"));
+        private ElementWrapper LoginButton => new(driver, By.Id("login-button"));
+        private ElementWrapper LoginErrorMsg => new(driver, By.XPath("//div/h3"));
+        private ElementWrapper LoginTitle => new(driver, By.XPath("//div[@class='login_logo']"));
+        private ElementWrapper PasswordInput => new(driver, By.Id("password"));
+        private ElementWrapper UserInput => new(driver, By.Id("user-name"));
 
         public void ClickLoginButton()
         {

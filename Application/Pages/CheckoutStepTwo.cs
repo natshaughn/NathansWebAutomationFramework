@@ -6,12 +6,13 @@ namespace NathansWebAutomationFramework.Application.Pages
     {
         private readonly IWebDriver driver;
 
+
         public CheckoutStepTwo(IWebDriver driver)
         {
             this.driver = driver;
         }
 
-        private ElementWrapper FinishButton => new ElementWrapper(driver, By.XPath("//button[@id='finish']"));
+        private ElementWrapper FinishButton => new(driver, By.Id("finish"));
 
         public void ClickFinishButton()
         {

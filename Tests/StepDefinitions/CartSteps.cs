@@ -14,11 +14,5 @@ namespace NathansWebAutomationFramework.Tests.StepDefinitions
             driver = DriverManager.GetDriver();
             cart = new Cart(driver);
         }
-
-        [When(@"I click the checkout button")]
-        public void WhenIClickTheCheckoutButton()
-        {
-            cart.ClickCheckoutButton();
-        }
     }
 }
